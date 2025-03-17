@@ -1,3 +1,4 @@
-parser.py
+products_parser.py
 .idea/
 venv/
+__pycache__/
