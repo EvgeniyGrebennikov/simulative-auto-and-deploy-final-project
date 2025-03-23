@@ -27,5 +27,7 @@ price - цена одной позиции без учета скидки
 
 discount - сумма скидки на эту позицию (может быть 0)
 
+<img width="302" alt="scheme_shops_db" src="https://github.com/user-attachments/assets/c04fc89c-c77f-498b-8fd7-9f689a1d0671" />
 
-![img.png](img.png)
+
+
