@@ -2,15 +2,20 @@ import re
 import os
 import configparser
 import pandas as pd
+from glob import glob
 from data_processing_func import create_cash_receipts_df, return_categories_and_products
 from pg_db_connector import DataBase
 
+# Указание отображения кол-ва столбцов датафрейма
 pd.set_option('display.max_columns', 40)
 
+# Указание текущего пути
 dirname = os.path.dirname(__file__)
 
+# Считcываем доступы из config.ini
 config = configparser.ConfigParser()
 config.read(os.path.join(dirname, 'config.ini'))
+
 
 # Указываем путь к папке data
 files_path = config['Files']['FILES_PATH']
@@ -82,5 +87,13 @@ for i, row in cash_receipts_df.iterrows():
     (select id from receipts where doc = '{doc_id}')
     )"""
     db.post(query)
+
+# Ищем все файлы-csv
+files_in_data = [fl for fl in glob(files_path + "*.csv")]
+# Проверяем csv-файлы в папке data, выбираем только кассовые чеки
+cash_receipts_files = [fl for fl in files_in_data if re.search(r"data\\\d{1,}\_\d\.csv", fl)]
+# Удаляем файлы с кассовыми чеками после их записи в БД
+for fl in cash_receipts_files:
+    os.remove(fl)
 
 
