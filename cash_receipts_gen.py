@@ -19,7 +19,7 @@ if not os.path.exists(files_path):
     os.mkdir(files_path)
 
 def generate_data(daily_receipts, shops_list, cash_registers):
-    with open('products.csv', 'r', encoding='utf-8') as file:
+    with open(os.path.join(dirname, 'products.csv'), 'r', encoding='utf-8') as file:
         # Сохраним в data список всех товаров, которые есть в продаже
         data = list(csv.reader(file))[1:]
 
@@ -79,4 +79,4 @@ for shp in shop_nums:
     cash_nums = sorted(cash_receipts_df[cash_receipts_df['shop_num'] == shp]['cash_num'].unique().tolist())
     for csh in cash_nums:
         current_df = cash_receipts_df[(cash_receipts_df['shop_num'] == shp) & (cash_receipts_df['cash_num'] == csh)]
-        current_df.loc[:, :'discount'].to_csv(os.path.join(dirname, files_path + f"{shp}_{csh}.csv"), index=False)
+        current_df.loc[:, :'discount'].to_csv(os.path.join(dirname, files_path, f"{shp}_{csh}.csv"), index=False)

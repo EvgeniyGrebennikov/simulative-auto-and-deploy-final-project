@@ -21,7 +21,7 @@ config.read(os.path.join(dirname, 'config.ini'))
 files_path = config['Files']['FILES_PATH']
 
 # Получаем датафрейм на основе сгенерированных файлов с продажами
-cash_receipts_df = create_cash_receipts_df(files_path)
+cash_receipts_df = create_cash_receipts_df(os.path.join(dirname, files_path))
 
 # Получаем уникальные категории товаров и информацию о продукте (название: цена)
 unique_categories, products_info = return_categories_and_products()
@@ -89,7 +89,7 @@ for i, row in cash_receipts_df.iterrows():
     db.post(query)
 
 # Ищем все файлы-csv
-files_in_data = [fl for fl in glob(files_path + "*.csv")]
+files_in_data = [fl for fl in glob(os.path.join(files_path, "*.csv"))]
 # Проверяем csv-файлы в папке data, выбираем только кассовые чеки
 cash_receipts_files = [fl for fl in files_in_data if re.search(r"data\\\d{1,}\_\d\.csv", fl)]
 # Удаляем файлы с кассовыми чеками после их записи в БД
