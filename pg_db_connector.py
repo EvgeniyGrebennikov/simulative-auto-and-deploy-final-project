@@ -13,7 +13,7 @@ config.read(os.path.join(dirname, 'config.ini'))
 
 # Настройка логирования
 ## Считываем путь для записи логов
-logs_path = config['Logs']['LOGS_PATH']
+logs_path = os.path.join(dirname, config['Logs']['LOGS_PATH'])
 
 ## Проверяем наличие папки, создаем при необходимости
 if not os.path.exists(logs_path):
