@@ -22,8 +22,6 @@ files_path = config['Files']['FILES_PATH']
 
 # Получаем датафрейм на основе сгенерированных файлов с продажами
 cash_receipts_df = create_cash_receipts_df(os.path.join(dirname, files_path))
-print(cash_receipts_df.head())
-print(cash_receipts_df.columns)
 
 # Получаем уникальные категории товаров и информацию о продукте (название: цена)
 unique_categories, products_info = return_categories_and_products()

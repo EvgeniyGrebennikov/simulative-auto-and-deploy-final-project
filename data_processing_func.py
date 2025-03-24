@@ -17,7 +17,7 @@ def create_cash_receipts_df(files_path):
     files_in_data = [fl for fl in glob(files_path + "*.csv")]
 
     # Проверяем csv-файлы в папке data, выбираем только кассовые чеки
-    cash_receipts_files = [fl for fl in files_in_data if re.search(r"data\\\d{1,}\_\d\.csv", fl)]
+    cash_receipts_files = [fl for fl in files_in_data if re.search(r"\d+_\d+\.csv", fl)]
 
     # Создаем пустой датафрейм и объединяем его со считываемыми данными
     result_df = pd.DataFrame()
