@@ -36,6 +36,7 @@ create table  if not exists discounts (
 
 create table  if not exists orders (
 	id serial primary key not null,
+	date date not null,
 	product_id int default null,
 	amount smallint default null,
 	discount_id smallint default null,
