@@ -92,7 +92,7 @@ for i, row in cash_receipts_df.iterrows():
 # Ищем все файлы-csv
 files_in_data = [fl for fl in glob(os.path.join(files_path, "*.csv"))]
 # Проверяем csv-файлы в папке data, выбираем только кассовые чеки
-cash_receipts_files = [fl for fl in files_in_data if re.search(r"data\\\d{1,}\_\d\.csv", fl)]
+cash_receipts_files = [fl for fl in files_in_data if re.search(r"\d+_\d+\.csv", fl)]
 # Удаляем файлы с кассовыми чеками после их записи в БД
 for fl in cash_receipts_files:
     os.remove(fl)
