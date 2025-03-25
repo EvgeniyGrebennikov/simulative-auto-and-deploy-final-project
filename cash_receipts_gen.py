@@ -5,6 +5,7 @@ import pandas as pd
 import configparser
 import os
 from collections import defaultdict
+from datetime import date, timedelta
 
 pd.set_option('display.max_columns', 40)
 
@@ -34,7 +35,7 @@ def generate_data(daily_receipts, shops_list, cash_registers):
             # Определим товары, которые были куплены с учетом кол-ва позиций чека (receipt_positions)
             current_items = random.choices(data, k=receipt_positions)
 
-            # Определим номер кассы для чека (всего 5 касс)
+            # Определим номер кассы для чека (всего имеется 5 касс)
             cash_num = random.choice(cash_registers)
 
             # Сгенерируем id чека
@@ -52,6 +53,7 @@ def generate_data(daily_receipts, shops_list, cash_registers):
             shop_num = [shop_num] * receipt_positions
             cash_num = [cash_num] * receipt_positions
 
+            cash_receipts_info['date'].extend([(date.today() - timedelta(days=1)).isoformat()] * len(current_items))
             cash_receipts_info['doc_id'].extend(doc_id)
             cash_receipts_info['item'].extend(item)
             cash_receipts_info['category'].extend(category)

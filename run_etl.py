@@ -73,6 +73,7 @@ for doc in unique_cash_receipts:
 
 # Загружаем данные датафрейма (сгенерированных продаж) в таблицу orders (id <PK>, product_id, amount, discount_id <FK>, doc_id <FK>)
 for i, row in cash_receipts_df.iterrows():
+    date = row['date']
     doc_id = row['doc_id']
     item = row['item']
     category = row['category']
@@ -80,8 +81,8 @@ for i, row in cash_receipts_df.iterrows():
     price = row['price']
     discount = row['discount']
 
-    query = f"""insert into orders(product_id, amount, discount_id, doc_id)
-    values((select id from products where item = '{item}'),
+    query = f"""insert into orders(date, product_id, amount, discount_id, doc_id)
+    values('{date}', (select id from products where item = '{item}'),
     ({amount}),
     (select id from discounts where discount = {discount}),
     (select id from receipts where doc = '{doc_id}')
